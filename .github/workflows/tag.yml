@@ -22,3 +22,5 @@ jobs:
         fetch-depth: 0
     - name: AutoTag
       uses: ./
+      with:
+         release_branch: 'main'       
