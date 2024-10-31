@@ -1,21 +1,19 @@
-
-name: "Auto Git Tag"
-author: 'Ellie Kerns <epkerns@gmail.com>'
-description: "Automatically tag releases based on commit messages"
-  
+name: Auto Git Tag
+author: Ellie Kerns <epkerns@gmail.com>
+description: Automatically tag releases based on commit messages
 inputs:
   github_token:
-    description: "GitHub token for authentication"
+    description: GitHub token for authentication
     required: true
   release_branch:
-    description: "The branch to consider as the release branch (default: release)"
+    description: 'The branch to consider as the release branch (default: release)'
     required: false
-    default: "release"
+    default: release
 permissions:
   contents: write
 runs:
-  using: 'node22'
-  main: 'dist/index.js'
+  using: node20
+  main: dist/index.js
 branding:
-  icon: 'tag'
-  color: 'purple'
+  icon: tag
+  color: purple
