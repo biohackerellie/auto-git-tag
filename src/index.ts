@@ -2,6 +2,7 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
 import simpleGit from 'simple-git';
+import semver from 'semver'
 
 async function run() {
   try {
@@ -9,7 +10,7 @@ async function run() {
     const releaseBranch = core.getInput('release_branch') || 'release';
     const git = simpleGit();
     const branch = process.env.GITHUB_REF?.replace('refs/heads/', '') || '';
-    
+    const dryRun = core.getBooleanInput('dry_run') || false;
     if (branch.startsWith('refs/pull/')) {
       core.info('This is a pull request context. Skipping tagging.');
       return;
@@ -41,7 +42,8 @@ async function run() {
 
     // Get Latest Release Tag
     const tags = (await git.tags()).all.filter(tag => /^v\d+\.\d+\.\d+$/.test(tag));
-    const latestReleaseTag = tags.sort().reverse()[0] || 'v0.0.0';
+    const sortedTags = tags.sort((a, b) => semver.compare(semver.clean(a)!, semver.clean(b)!));
+    const latestReleaseTag = sortedTags[sortedTags.length - 1] || 'v0.0.0';
     core.setOutput('latest_release_tag', latestReleaseTag);
 
     // Get Latest Tag for Branch
@@ -72,7 +74,10 @@ async function run() {
 
     core.setOutput('NEXT_TAG', nextTag);
 
-    // Push the Tag
+    if (dryRun) {
+      core.info('Dry run enabled. Skipping tag push.');
+      return
+    }
     await git.addTag(nextTag);
     await git.pushTags(`https://${githubToken}@github.com/${github.context.repo.owner}/${github.context.repo.repo}`);
     core.info(`Successfully pushed tag ${nextTag}`);

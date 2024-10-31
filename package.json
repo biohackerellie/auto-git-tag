@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/biohackerellie/auto-git-tag/issues"
   },
-  "homepage": "https://github.com/biohackerellie/auto-git-tag#readme", 
+  "homepage": "https://github.com/biohackerellie/auto-git-tag#readme",
   "keywords": [
     "github",
     "actions",
@@ -32,12 +32,14 @@
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.0",
     "@vercel/ncc": "^0.38.2",
+    "semver": "^7.6.3",
     "simple-git": "^3.27.0"
   },
   "engines": {
     "node": "20.x"
   },
   "devDependencies": {
+    "@types/semver": "^7.5.8",
     "@types/node": "^22.8.5",
     "ts-jest": "^29.2.5",
     "typescript": "^5.6.0"

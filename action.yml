@@ -9,6 +9,15 @@ inputs:
     description: 'The branch to consider as the release branch (default: release)'
     required: false
     default: release
+  dry_run:
+    description: >-
+      Will create the tag without pushing to git, and will still return the tag
+      as an output
+    required: false
+    default: false
+outputs:
+  NEXT_TAG:
+    description: ouputed tag
 permissions:
   contents: write
 runs:
