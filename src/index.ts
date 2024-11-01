@@ -50,8 +50,17 @@ async function run() {
     // Get Latest Tag for Branch
     let currentTag = latestReleaseTag;
     if (branch !== releaseBranch) {
-      const branchTags = (await git.tags()).all.filter(tag => tag.includes(`-${branch}.`));
-      currentTag = branchTags.sort().reverse()[0] || `${latestReleaseTag}-${branch}.0`;
+      const branchTags = (await git.tags()).all
+        .filter(tag => tag.startsWith(`v${semver.clean(latestReleaseTag)}-${branch}.`))
+        .map(tag => {
+          const match = tag.match(new RegExp(`-${branch}\.(\\d+)$`));
+          return match ? parseInt(match[1], 10) : 0;
+        })
+        .sort((a, b) => a - b);
+
+      const lastSuffix = branchTags[branchTags.length - 1] || 0;
+      currentTag = `${latestReleaseTag}-${branch}.${lastSuffix}`;
+      core.info(`Current tag for branch ${branch} is ${currentTag}`);
     }
 
     core.setOutput('latest_tag', currentTag);
@@ -69,10 +78,10 @@ async function run() {
       }
     } else {
       const baseVersion = latestReleaseTag.replace(/^v/, '');
-      const branchSuffix = parseInt(currentTag.split('.').pop() || '0') + 1;
+      const branchSuffix = parseInt(currentTag.split('.').pop() || '0', 10) + 1;
       nextTag = `v${baseVersion}-${branch}.${branchSuffix}`;
     }
-
+    core.info(`Next tag for branch ${branch} is ${nextTag}`);
     core.setOutput('NEXT_TAG', nextTag);
 
     if (dryRun) {
