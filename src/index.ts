@@ -9,7 +9,7 @@ async function run() {
     const githubToken = core.getInput('github_token');
     const releaseBranch = core.getInput('release_branch') || 'release';
     const git = simpleGit();
-    const branch = process.env.GITHUB_REF?.replace('refs/heads/', '') || '';
+    const branch =  await git.revparse(['--abbrev-ref', 'HEAD']).then(res => res.trim());
     const dryRun = core.getBooleanInput('dry_run') || false;
     if (branch.startsWith('refs/pull/')) {
       core.info('This is a pull request context. Skipping tagging.');
@@ -68,7 +68,7 @@ async function run() {
       }
     } else {
       const baseVersion = latestReleaseTag.replace(/^v/, '');
-      const branchSuffix = parseInt(currentTag.split('.').pop() || '0', 10) + 1;
+      const branchSuffix = parseInt(currentTag.split('.').pop() || '0') + 1;
       nextTag = `v${baseVersion}-${branch}.${branchSuffix}`;
     }
 
