@@ -10,6 +10,7 @@ async function run() {
     const releaseBranch = core.getInput('release_branch') || 'release';
     const git = simpleGit();
     const branch =  await git.revparse(['--abbrev-ref', 'HEAD']).then(res => res.trim());
+    console.log('Branch:', branch);
     const dryRun = core.getBooleanInput('dry_run') || false;
     if (branch.startsWith('refs/pull/')) {
       core.info('This is a pull request context. Skipping tagging.');
