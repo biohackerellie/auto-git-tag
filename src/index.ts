@@ -60,9 +60,9 @@ async function run() {
 
       const lastSuffix = branchTags[branchTags.length - 1] || 0;
       currentTag = `${latestReleaseTag}-${branch}.${lastSuffix}`;
-      core.info(`Current tag for branch ${branch} is ${currentTag}`);
     }
 
+    core.info(`Current tag for branch ${branch} is ${currentTag}`);
     core.setOutput('latest_tag', currentTag);
 
     // Calculate Next Tag
