@@ -10,7 +10,7 @@
   "npm": {
     "fileMatch": [
       "(^|/)package\\.json$",
-      "(^|/)package\\.json\\.hbs$",
+      "(^|/)package\\.json\\.hbs$"
     ]
   }
 }
