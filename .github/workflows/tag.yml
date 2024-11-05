@@ -24,3 +24,11 @@ jobs:
       uses: ./
       with:
          release_branch: 'main'       
+  release:
+    needs: tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: release
+        uses: softprops/action-gh-release@v2
