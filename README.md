@@ -34,15 +34,14 @@ jobs:
       with:
         fetch-depth: 0
     - uses: biohackerellie/auto-git-tag@v1
+      id: tag # This is the id of the step, you can use this to access the output of the step 
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         release_branch: 'main' # Optional, default is 'release'
         dry_run: false # Optional, default is false
 # a dry run will not push the tag to git, but will output the tag which you can use in a subsequent step
-  some-builder:
-    runs-on: something
-    steps:
-        - run: echo "{{ steps.tag.outputs.NEXT_TAG }}"
+    - uses: ubuntu-latest
+      run: echo "{{ steps.tag.outputs.NEXT_TAG }}"
           
 ```
 

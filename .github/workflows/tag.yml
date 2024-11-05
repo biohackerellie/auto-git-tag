@@ -21,6 +21,11 @@ jobs:
       with:
         fetch-depth: 0
     - name: AutoTag
+      id: tag
       uses: ./
       with:
          release_branch: 'main'       
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ steps.tag.outputs.NEXT_TAG }}
