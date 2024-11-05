@@ -29,3 +29,10 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ steps.tag.outputs.NEXT_TAG }}
+    - name: Install deps and build
+      run: npm ci && npm run build
+    - uses: JasonEtco/build-and-tag-action@v2
+      with:
+        tag_name: ${{ steps.tag.outputs.NEXT_TAG }}
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
