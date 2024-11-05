@@ -4,7 +4,7 @@
   "description": "Automatically tag releases based on commit messages",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && ncc build dist/index.js",
+    "build": "npx @vercel/ncc build src/index.ts  -m -s",
     "test": "npm test",
     "workflow": "npm run build && node dist/index.js"
   },
