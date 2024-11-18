@@ -6,6 +6,19 @@
   "schedule": ["after 10pm", "before 5am"],
   "updateInternalDeps": true,
   "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "*"
+      ],
+    "matchUpdateTypes": [
+      "minor",
+      "patch"
+    ],
+    "groupName": "all non-major deps",
+    "groupSlug": "all-minor-patch"
+    }
+  ],
   "automerge": true,
   "npm": {
     "fileMatch": [
