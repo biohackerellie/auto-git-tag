@@ -36,7 +36,7 @@
     "simple-git": "^3.27.0"
   },
   "engines": {
-    "node": "20.x"
+    "node": "20.18.0"
   },
   "devDependencies": {
     "@types/semver": "^7.5.8",
