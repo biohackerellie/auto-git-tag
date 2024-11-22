@@ -16,7 +16,6 @@ concurrency:
 
 jobs:
   build:
-    id: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
