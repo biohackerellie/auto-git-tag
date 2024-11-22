@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
-    "module": "commonjs",
-    "outDir": "dist", // use this for build under script in package.json
+    "target": "esnext",
+    "module": "Preserve",
+    "outDir": "dist", 
+    "lib": ["esnext"],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
