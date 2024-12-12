@@ -50,6 +50,7 @@ describe("Auto Tag Action", () => {
 
     await run();
     expect(mockSetOutput).toHaveBeenCalledWith("bump_type", "major");
+    expect(mockSetOutput).toHaveBeenCalledWith("PREVIOUS_TAG", "v1.2.0");
     expect(mockSetOutput).toHaveBeenCalledWith("NEXT_TAG", "v2.0.0");
   });
 

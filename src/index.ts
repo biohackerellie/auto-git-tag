@@ -81,7 +81,7 @@ export async function run() {
       semver.compare(semver.clean(a)!, semver.clean(b)!),
     );
     const latestReleaseTag = sortedTags[sortedTags.length - 1] || "v0.0.0";
-    core.setOutput("latest_release_tag", latestReleaseTag);
+    core.setOutput("PREVIOUS_TAG", latestReleaseTag);
 
     // Get Latest Tag for Branch
     let currentTag = latestReleaseTag;
