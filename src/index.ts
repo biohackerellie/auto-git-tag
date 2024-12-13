@@ -127,7 +127,7 @@ export async function run() {
       core.info("Dry run enabled. Skipping tag push.");
       return;
     }
-    await git.addTag(nextTag);
+    await git.tag(["-a", nextTag, "-m", `Tag ${nextTag}`]);
     await git.pushTags(
       `https://${githubToken}@github.com/${github.context.repo.owner}/${github.context.repo.repo}`,
     );
